@@ -15,13 +15,13 @@ import fit.ultimate.photoapp.model.Photo
 class MainAdapter(var photos: List<Photo>,
                   var clickListener: View.OnClickListener) : RecyclerView.Adapter<MainAdapter.PhotoViewHolder>() {
     override fun onBindViewHolder(holder: PhotoViewHolder?, position: Int) {
-        val photo = photos[position]
+        var photo = photos[position]
         holder?.tags?.text = photo.tags
         holder?.likes?.text = photo.likes.toString()
         holder?.favorites?.text = photo.favorites.toString()
-        if(photo.previewUrl.isNotEmpty()){
+        if(photo.previewURL.isNotEmpty()){
             Glide.with(holder?.tags?.context)
-                    .load(photo.previewUrl)
+                    .load(photo.previewURL)
                     .into(holder?.photoItem)
         }
     }
@@ -48,6 +48,7 @@ class MainAdapter(var photos: List<Photo>,
             if(clickListener != null){
                 itemView.setOnClickListener(clickListener)
             }
+            //set tag to this in order to retrieve it later
             itemView.tag = this
             tags = itemView.findViewById<TextView>(R.id.tags)
             likes = itemView.findViewById<TextView>(R.id.likes)
